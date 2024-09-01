@@ -82,3 +82,5 @@ while visibility:
 car_scal=pygame.transform.scale(car,(200,150))
 ```
 এই scale function এঁর দুইটা parameter. প্রথম parameter এ বলে দিতে হয় যে কোন পিকচার টা ট্রান্সফর্ম করা লাগবে বা স্কেইল করা লাগবে। পরের parameter এ সাইজ বলে দিতে হয় যে কত width, heigth এঁর হবে। (weidth, heigth) এই দুইটা মিলে একটা parameter। আমি আমার মতো করে যেভাবে সুন্দর হয় সেই weidth, heigth বসালাম। 
+
+- এখন কাজ হলো car টাকে proper জায়গায় বা আমাদের road/ lan/ track এ বসানো। এটার জন্য     window.blit(car_scal,(10,270)) এই blit এঁর position arguments গুলো পরিবর্তন করতে হবে। আমি আমার সুন্দর মতো tune করে সবালাম। যদি ডান দিকে আসতে হয় তাহলে first argument (10) টাকে বারাতে হবে অথবা বাম দিকে নিতে চাইলে কমাতে হবে। যদি নিচের দিকে আনতে হয় তাহলে second argument (270) কে বারাতে হবে। আর উপরে নিতে হলে কমাতে হবে। 
