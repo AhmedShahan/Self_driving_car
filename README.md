@@ -72,3 +72,13 @@ while visibility:
     window.blit(track,(0,0))
     pygame.display.update()
 ```
+
+## Step 2> Load The Car ans resize
+- আগের মত আমরা একটা Car এঁর পিকচার load করি। 
+- এখন দেখা গেল যে আমাদের road এঁর তুলনায় গাড়ি অনেক বড়। তাহলে আমাদের এখন গাড়ির সাইজ ছোট করতে হবে। 
+- এই যে গাড়ির সাইজ ছট করা সেটা হলো scale করা। pygame এঁর transform class এঁর মধ্যে একটা function ই আছে transform করা। 
+
+```
+car_scal=pygame.transform.scale(car,(200,150))
+```
+এই scale function এঁর দুইটা parameter. প্রথম parameter এ বলে দিতে হয় যে কোন পিকচার টা ট্রান্সফর্ম করা লাগবে বা স্কেইল করা লাগবে। পরের parameter এ সাইজ বলে দিতে হয় যে কত width, heigth এঁর হবে। (weidth, heigth) এই দুইটা মিলে একটা parameter। আমি আমার মতো করে যেভাবে সুন্দর হয় সেই weidth, heigth বসালাম। 
