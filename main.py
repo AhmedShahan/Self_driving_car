@@ -11,7 +11,11 @@ visibility=True
 
 car_x=10
 car_y=270
+
+
 while visibility:
+    sensor_x=car_x + (220/2)
+    sensor_y= car_y + (170/2)
     for events in pygame.event.get():
         # print(events)
         if events.type == pygame.QUIT:
@@ -19,4 +23,5 @@ while visibility:
     window.blit(track,(0,0))
     window.blit(car_scal,(car_x,car_y))
     car_x=car_x+2
+    pygame.draw.circle(window,(0,255,0),(sensor_x,sensor_y),5,5)
     pygame.display.update()
