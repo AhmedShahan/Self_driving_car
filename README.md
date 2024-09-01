@@ -4,6 +4,7 @@
 ```
 pip install pygame
 ```
+## Step 1> Load Picture or Track
 - import pygame
 ```
 import pygame
@@ -16,10 +17,58 @@ pygame.init
 
 - now we should set the window size. অর্থাৎ আমাদের window এঁর সাইজ কত হবে সেটা define করা। 
 ```
-window= pygame.display.set_mode(1200,720)
+window= pygame.display.set_mode((1900,900))
 ```
+এখানে set_mode এঁর ভ্যালু হবে পিকচারের সাইজ অনুযায়ী। তা না হলে সম্পুর্ণ পিকচার দেখা যাবে না। 
 - একন আমরা চাচ্ছি ওই window তে আমাদের পিকচার টা দেখাক এবং সেটা দেখাতেই থাকবে মানে while loop যতক্ষণ না আমরা কেটে দিচ্ছি। 
 ```
 while True: 
 ```
 - এখন পিকচার দেখানোর জন্য window এঁর function হলো blit যার পুরো meaning Bl= Block I= Image T= Transform
+```
+window.blit(track,(0,0))
+```
+এখানে আমরা কোন পিকচার কে Transform করতে চাচ্ছি? track পিকচার কে তাই প্রথম parameter হলো যেই পিকচারকে Transform করতে চাচ্ছি সেটার নাম  
+দ্বিতীয় প্যারামেটার হলো window এঁর কোন position এ আমরা চাচ্ছি সেই position। (0,0) মানে হলো window এঁর এক্কেবারে upper left corner. 
+
+- এখন আমাদের pygame এঁর display তে তও আমরা অনেক changes করেছি। সেটাকে update করা লাগবে। 
+```
+pygame.display.update()
+```
+** Entire Source code 
+```
+import pygame
+pygame.init()
+track=pygame.image.load('road/road1.png')
+window= pygame.display.set_mode((1600,900))
+
+while True:
+    window.blit(track,(0,0))
+    pygame.display.update()
+```
+> এই টুকতে তেমন কিছুই হচ্ছে না। শুধু মাত্র আমাদের পিকচার টা load হয়ে সেটা show করতেছে। 
+
+- এখানে একটা বিপত্তি আসল। window টা ক্লোজ করা যাচ্ছে না। আমাদের terminal kill করা লাগতেছে। So lets fixed it. 
+- প্রথমেই আমরা দেখে নেই যে window তে কি কি events হচ্ছে। 
+```
+while True:
+    for events in pygame.event.get():
+        print(events)
+```
+এতে করে কিছুই হবে না শুধু window তে যেই যেই event হচ্ছে সেগুলো type wise print করবে। যদি আমরা close button এ ক্লিক করই তাহলে দেখব যে events type= quite এরকম কিছু আসতেছে। তার মানে events এঁর type যদি pygame.quite হয় তাহলেই আমাদের ব্রেক করবে। কিন্তু সমস্যা হলো break শুধু inner for loop এ কাজ করবে। outer while loop এ কাজ করবে না। এইজন্য আলাদা একটা variable নিতে হবে। আমরা নিলাম visibility= True হিসেবে আর while loop টা চলবে visibility অনুযায়ী। 
+```
+visibility=True
+while visibility:
+    for events in pygame.event.get():
+```
+- এখন যদি if events.type == pygame.QUIT: এটা True হয় তাহলে আমাদের visibility False হয়ে যাবে। 
+```
+visibility=True
+while visibility:
+    for events in pygame.event.get():
+        # print(events)
+        if events.type == pygame.QUIT:
+            visibility=False
+    window.blit(track,(0,0))
+    pygame.display.update()
+```
