@@ -154,3 +154,6 @@ while visibility:
     pygame.draw.circle(window,(0,255,0),(sensor_x,sensor_y),5,5)
     pygame.display.update()
 ```
+
+- এবার আসা যাক এই সেন্সর থেকে ডেটা নেওয়ার পালা। আমাদের target হলো সেন্সর থেকে x axis বরাবর কিছু দূরত্বতে রাস্তার কালার চেক করা। 
+- 
