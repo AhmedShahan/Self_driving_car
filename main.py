@@ -36,7 +36,7 @@
 
 
 import pygame
-
+import numpy as np
 pygame.init()
 
 # Load images
@@ -74,6 +74,20 @@ while visibility:
     detectPoint_y4 = sensor_y + threshold
 
     
+    detectPoint_x5=sensor_x+ (77.78)
+    detectPoint_y5=sensor_y+ (77.78)
+
+    detectPoint_x6=sensor_x+ (-77.78)
+    detectPoint_y6=sensor_y+ (77.78)
+    
+    detectPoint_x7=sensor_x+ (-77.78)
+    detectPoint_y7=sensor_y+ (-77.78)
+
+    
+    detectPoint_x8=sensor_x+ (77.78)
+    detectPoint_y8=sensor_y+ (-77.78)
+
+    # print(detectPoint_x5)
 
     # Draw the track and car on the window
     window.blit(track, (0, 0))
@@ -87,7 +101,13 @@ while visibility:
     
     right_pxR = window.get_at((int(detectPoint_x4), int(detectPoint_y4)))
 
-    pygame.draw.circle(window, (0, 255, 0), (int(detectPoint_x4), int(detectPoint_y4)), 5, 5)
+    upper_rightCorner_pxR = window.get_at((int(detectPoint_x5), int(detectPoint_y5)))
+    upper_rightCorner_pxR = window.get_at((int(detectPoint_x6), int(detectPoint_y6)))
+    
+    lower_rightCorner_pxR = window.get_at((int(detectPoint_x7), int(detectPoint_y7)))
+    lower_leftCorner_pxR = window.get_at((int(detectPoint_x8), int(detectPoint_y8)))
+
+
 
     print(forward_pxR)
     
@@ -102,10 +122,16 @@ while visibility:
     
     # Draw circles to visualize sensor and detect points
     pygame.draw.circle(window, (0, 255, 0), (int(sensor_x), int(sensor_y)), 5, 5)
-    pygame.draw.circle(window, (255, 255, 0), (int(detectPoint_x1), int(detectPoint_y1)), 5, 5)
+    pygame.draw.circle(window, (255, 255, 0),(int(detectPoint_x1), int(detectPoint_y1)), 5, 5)
     pygame.draw.circle(window, (0, 255, 0), (int(detectPoint_x2), int(detectPoint_y2)), 5, 5)
     pygame.draw.circle(window, (0, 255, 0), (int(detectPoint_x3), int(detectPoint_y3)), 5, 5)
     pygame.draw.circle(window, (0, 255, 0), (int(detectPoint_x4), int(detectPoint_y4)), 5, 5)
+    pygame.draw.circle(window, (0, 255, 0), (int(detectPoint_x5), int(detectPoint_y5)), 5, 5)
+    pygame.draw.circle(window, (0, 255, 0), (int(detectPoint_x6), int(detectPoint_y6)), 5, 5)
+    pygame.draw.circle(window, (0, 255, 0), (int(detectPoint_x7), int(detectPoint_y7)), 5, 5)
+    pygame.draw.circle(window, (0, 255, 0), (int(detectPoint_x8), int(detectPoint_y8)), 5, 5)
+
+
 
 
     
