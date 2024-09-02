@@ -1,40 +1,3 @@
-# import pygame
-# pygame.init()
-# track=pygame.image.load('road/road2.png')
-# car=pygame.image.load('car/car2.png')
-
-# car_scal=pygame.transform.scale(car,(220,170))
-
-# window= pygame.display.set_mode((1280,720))
-
-# visibility=True
-
-# car_x=10
-# car_y=270
-
-
-# while visibility:
-#     sensor_x=car_x + (220/2)
-#     sensor_y= car_y + (170/2)
-    
-#     detectPoint_x=sensor_x+150
-#     detectPoint_y=sensor_y
-#     forward_pxR=window.get_at((int(detectPoint_x), int(detectPoint_y)))
-#     print(forward_pxR)
-#     for events in pygame.event.get():
-#         # print(events)
-#         if events.type == pygame.QUIT:
-#             visibility=False
-#     if forward_pxR[0]==255:
-#         car_x=car_x+2
-#     window.blit(track,(0,0))
-#     window.blit(car_scal,(car_x,car_y))
-#     pygame.draw.circle(window,(0,255,0),(sensor_x,sensor_y),5,5)
-#     pygame.draw.circle(window,(255,255,0),(detectPoint_x,detectPoint_y),5,5)
-#     pygame.display.update()
-
-
-
 import pygame
 import numpy as np
 pygame.init()
@@ -54,7 +17,10 @@ visibility = True
 # Initial car position
 car_x = 10
 car_y = 270
-threshold=110
+threshold = 110
+move_left = False
+move_right = False
+
 while visibility:
     # Calculate sensor position
     sensor_x = car_x + (220 / 2)
@@ -73,21 +39,17 @@ while visibility:
     detectPoint_x4 = sensor_x 
     detectPoint_y4 = sensor_y + threshold
 
-    
-    detectPoint_x5=sensor_x+ (77.78)
-    detectPoint_y5=sensor_y+ (77.78)
+    detectPoint_x5 = sensor_x + 77.78
+    detectPoint_y5 = sensor_y + 77.78
 
-    detectPoint_x6=sensor_x+ (-77.78)
-    detectPoint_y6=sensor_y+ (77.78)
+    detectPoint_x6 = sensor_x - 77.78
+    detectPoint_y6 = sensor_y + 77.78
     
-    detectPoint_x7=sensor_x+ (-77.78)
-    detectPoint_y7=sensor_y+ (-77.78)
+    detectPoint_x7 = sensor_x - 77.78
+    detectPoint_y7 = sensor_y - 77.78
 
-    
-    detectPoint_x8=sensor_x+ (77.78)
-    detectPoint_y8=sensor_y+ (-77.78)
-
-    # print(detectPoint_x5)
+    detectPoint_x8 = sensor_x + 77.78
+    detectPoint_y8 = sensor_y - 77.78
 
     # Draw the track and car on the window
     window.blit(track, (0, 0))
@@ -98,31 +60,40 @@ while visibility:
     backward_pxR = window.get_at((int(detectPoint_x2), int(detectPoint_y2)))
 
     left_pxR = window.get_at((int(detectPoint_x3), int(detectPoint_y3)))
-    
     right_pxR = window.get_at((int(detectPoint_x4), int(detectPoint_y4)))
 
     upper_rightCorner_pxR = window.get_at((int(detectPoint_x5), int(detectPoint_y5)))
-    upper_rightCorner_pxR = window.get_at((int(detectPoint_x6), int(detectPoint_y6)))
+    upper_leftCorner_pxR = window.get_at((int(detectPoint_x6), int(detectPoint_y6)))
     
-    lower_rightCorner_pxR = window.get_at((int(detectPoint_x7), int(detectPoint_y7)))
-    lower_leftCorner_pxR = window.get_at((int(detectPoint_x8), int(detectPoint_y8)))
+    lower_leftCorner_pxR = window.get_at((int(detectPoint_x7), int(detectPoint_y7)))
+    lower_rightCorner_pxR = window.get_at((int(detectPoint_x8), int(detectPoint_y8)))
 
-
-
-    print(forward_pxR)
-    
     # Check for events
     for events in pygame.event.get():
         if events.type == pygame.QUIT:
             visibility = False
-    
-    # Move car based on RGB value
-    if forward_pxR[0] == 255:  # Assuming you're checking for red
+        elif events.type == pygame.KEYDOWN:
+            if events.key == pygame.K_LEFT:
+                move_left = True
+            elif events.key == pygame.K_RIGHT:
+                move_right = True
+        elif events.type == pygame.KEYUP:
+            if events.key == pygame.K_LEFT:
+                move_left = False
+            elif events.key == pygame.K_RIGHT:
+                move_right = False
+
+    # Move car based on key presses and RGB value
+    # if forward_pxR[0] == 255:  # Assuming you're checking for red
+    #     car_x += 2
+    if move_left:
+        car_x -= 2
+    if move_right:
         car_x += 2
     
     # Draw circles to visualize sensor and detect points
     pygame.draw.circle(window, (0, 255, 0), (int(sensor_x), int(sensor_y)), 5, 5)
-    pygame.draw.circle(window, (255, 255, 0),(int(detectPoint_x1), int(detectPoint_y1)), 5, 5)
+    pygame.draw.circle(window, (255, 255, 0), (int(detectPoint_x1), int(detectPoint_y1)), 5, 5)
     pygame.draw.circle(window, (0, 255, 0), (int(detectPoint_x2), int(detectPoint_y2)), 5, 5)
     pygame.draw.circle(window, (0, 255, 0), (int(detectPoint_x3), int(detectPoint_y3)), 5, 5)
     pygame.draw.circle(window, (0, 255, 0), (int(detectPoint_x4), int(detectPoint_y4)), 5, 5)
@@ -130,10 +101,6 @@ while visibility:
     pygame.draw.circle(window, (0, 255, 0), (int(detectPoint_x6), int(detectPoint_y6)), 5, 5)
     pygame.draw.circle(window, (0, 255, 0), (int(detectPoint_x7), int(detectPoint_y7)), 5, 5)
     pygame.draw.circle(window, (0, 255, 0), (int(detectPoint_x8), int(detectPoint_y8)), 5, 5)
-
-
-
-
     
     # Update the display
     pygame.display.update()
